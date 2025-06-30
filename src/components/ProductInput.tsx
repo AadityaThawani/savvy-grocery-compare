@@ -3,33 +3,68 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { suggestProducts } from '@/services/aiService';
+import { fetchTescoPrice } from '@/services/tesco';
+import { fetchSainsburysPrice } from '@/services/sainsburys';
+import { fetchAsdaPrice } from '@/services/asda';
 
 interface ProductInputProps {
   onAddProduct: (productName: string) => void;
   disabled: boolean;
 }
 
+interface StoreProduct {
+  name: string;
+  price: number;
+  store: string;
+}
+
 const ProductInput = ({ onAddProduct, disabled }: ProductInputProps) => {
   const [productName, setProductName] = useState('');
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [storeProducts, setStoreProducts] = useState<StoreProduct[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (productName.length > 2 && !disabled) {
       const timeoutId = setTimeout(async () => {
+        setLoading(true);
         try {
-          const suggestions = await suggestProducts(productName);
-          setSuggestions(suggestions);
+          // Fetch products from all three stores
+          const [tescoProduct, sainsburysProduct, asdaProduct] = await Promise.all([
+            fetchTescoPrice(productName),
+            fetchSainsburysPrice(productName),
+            fetchAsdaPrice(productName)
+          ]);
+
+          const products: StoreProduct[] = [
+            { ...tescoProduct, store: 'Tesco' },
+            { ...sainsburysProduct, store: "Sainsbury's" },
+            { ...asdaProduct, store: 'Asda' }
+          ];
+
+          // Remove duplicates based on product name (case insensitive)
+          const uniqueProducts = products.reduce((acc: StoreProduct[], current) => {
+            const exists = acc.find(item => 
+              item.name.toLowerCase() === current.name.toLowerCase()
+            );
+            if (!exists) {
+              acc.push(current);
+            }
+            return acc;
+          }, []);
+
+          setStoreProducts(uniqueProducts);
           setShowSuggestions(true);
         } catch (error) {
-          console.error('Error fetching suggestions:', error);
+          console.error('Error fetching products:', error);
+        } finally {
+          setLoading(false);
         }
       }, 300);
 
       return () => clearTimeout(timeoutId);
     } else {
-      setSuggestions([]);
+      setStoreProducts([]);
       setShowSuggestions(false);
     }
   }, [productName, disabled]);
@@ -40,8 +75,8 @@ const ProductInput = ({ onAddProduct, disabled }: ProductInputProps) => {
     setShowSuggestions(false);
   };
 
-  const handleSuggestionClick = (suggestion: string) => {
-    handleAddProduct(suggestion);
+  const handleSuggestionClick = (suggestion: StoreProduct) => {
+    handleAddProduct(suggestion.name);
   };
 
   return (
@@ -59,15 +94,28 @@ const ProductInput = ({ onAddProduct, disabled }: ProductInputProps) => {
               disabled={disabled}
               className="w-full"
             />
-            {showSuggestions && suggestions.length > 0 && (
-              <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-md shadow-lg z-10 mt-1">
-                {suggestions.map((suggestion, index) => (
+            {showSuggestions && storeProducts.length > 0 && (
+              <div className="absolute top-full left-0 right-0 bg-card border border-border rounded-md shadow-lg z-50 mt-1 max-h-64 overflow-y-auto">
+                {loading && (
+                  <div className="px-4 py-2 text-sm text-muted-foreground">
+                    Loading products...
+                  </div>
+                )}
+                {!loading && storeProducts.map((product, index) => (
                   <button
                     key={index}
-                    className="w-full text-left px-4 py-2 hover:bg-accent hover:text-accent-foreground transition-colors"
-                    onClick={() => handleSuggestionClick(suggestion)}
+                    className="w-full text-left px-4 py-3 hover:bg-accent hover:text-accent-foreground transition-colors border-b border-border/50 last:border-b-0 apple-transition"
+                    onClick={() => handleSuggestionClick(product)}
                   >
-                    {suggestion}
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <div className="font-medium text-sm">{product.name}</div>
+                        <div className="text-xs text-muted-foreground">Available at {product.store}</div>
+                      </div>
+                      <div className="text-sm font-semibold text-primary">
+                        £{product.price.toFixed(2)}
+                      </div>
+                    </div>
                   </button>
                 ))}
               </div>
