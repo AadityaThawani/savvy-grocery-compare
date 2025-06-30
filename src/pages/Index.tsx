@@ -59,32 +59,52 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="container mx-auto px-6 py-8 space-y-6">
-        <PostalCodeInput
-          onPostalCodeConfirmed={handlePostalCodeConfirmed}
-          confirmedPostalCode={postalCode}
-        />
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-6xl">
+        <div className="space-y-8">
+          {/* Hero Section */}
+          <div className="text-center py-8">
+            <h2 className="text-3xl font-semibold text-foreground mb-3 tracking-tight">
+              Compare grocery prices across stores
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              Find the best deals by comparing prices from Tesco, Sainsbury's, and Asda all in one place.
+            </p>
+          </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          <ProductInput
-            onAddProduct={handleAddProduct}
-            disabled={isDisabled}
-          />
-          <ReceiptScanner
-            onProductsExtracted={handleProductsExtracted}
-            disabled={isDisabled}
-          />
+          {/* Input Section */}
+          <div className="bg-card rounded-2xl border border-border/50 p-6 shadow-sm apple-transition apple-hover">
+            <PostalCodeInput
+              onPostalCodeConfirmed={handlePostalCodeConfirmed}
+              confirmedPostalCode={postalCode}
+            />
+
+            <div className="grid md:grid-cols-2 gap-6 mt-6">
+              <ProductInput
+                onAddProduct={handleAddProduct}
+                disabled={isDisabled}
+              />
+              <ReceiptScanner
+                onProductsExtracted={handleProductsExtracted}
+                disabled={isDisabled}
+              />
+            </div>
+          </div>
+
+          {/* Comparison Table */}
+          <div className="bg-card rounded-2xl border border-border/50 shadow-sm apple-transition">
+            <PriceComparisonTable
+              products={products}
+              onRemoveProduct={handleRemoveProduct}
+            />
+          </div>
         </div>
-
-        <PriceComparisonTable
-          products={products}
-          onRemoveProduct={handleRemoveProduct}
-        />
       </main>
       
-      <footer className="bg-card border-t py-6 mt-12">
-        <div className="container mx-auto px-6 text-center text-muted-foreground">
-          <p>&copy; 2024 Grocery Saver. Save money on your weekly shop.</p>
+      <footer className="bg-card border-t border-border/50 py-8 mt-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-sm text-muted-foreground">
+            &copy; 2024 Grocery Saver. Save money on your weekly shop.
+          </p>
         </div>
       </footer>
     </div>
