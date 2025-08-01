@@ -16,7 +16,7 @@ const Header = () => {
           
           <nav>
             <Link 
-              to="/how-it-works" 
+              to="/grocery-saver/how-it-works" 
               className="flex items-center gap-2 px-3 py-2 rounded-lg text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-colors"
             >
               <HelpCircle className="h-4 w-4" />
