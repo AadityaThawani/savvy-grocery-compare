@@ -58,7 +58,7 @@ const TerreneHome = () => {
               </div>
               <CardTitle>About Terrene Tech</CardTitle>
               <CardDescription>
-                Learn about our team and the vision driving our innovative projects.
+                Learn what Terrene Tech Aims to accomplish in the future
               </CardDescription>
             </CardHeader>
             <CardContent>
