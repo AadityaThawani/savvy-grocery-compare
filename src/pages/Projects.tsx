@@ -3,8 +3,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Calendar, Zap, Shield, Globe } from 'lucide-react';
+
 const Projects = () => {
-  return <div className="min-h-screen bg-gradient-to-br from-background to-muted">
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-background to-muted">
       <header className="bg-primary text-primary-foreground border-b">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -46,7 +48,7 @@ const Projects = () => {
                   <Badge variant="secondary">Q2 2025</Badge>
                 </div>
                 <CardTitle>Gym Progress Tracker</CardTitle>
-                <CardDescription>Quick easy to log and free service to track workouts and implement progressive overload the key to muscle building </CardDescription>
+                <CardDescription>Quick easy to log and free service to track workouts and implement progressive overload the key to muscle building </CardDescription>
               </CardHeader>
               <CardContent>
                 
@@ -54,16 +56,29 @@ const Projects = () => {
               </CardContent>
             </Card>
 
-            
-
-            
-
-            
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Globe className="h-6 w-6 text-primary" />
+                  </div>
+                  <Badge variant="secondary">Q3 2025</Badge>
+                </div>
+                <CardTitle>Future Project</CardTitle>
+                <CardDescription>Add your project description here</CardDescription>
+              </CardHeader>
+              <CardContent>
+                
+                
+              </CardContent>
+            </Card>
           </div>
 
           
         </div>
       </main>
-    </div>;
+    </div>
+  );
 };
+
 export default Projects;
