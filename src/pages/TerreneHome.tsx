@@ -2,25 +2,17 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ShoppingBasket, Users, Lightbulb, ArrowRight } from 'lucide-react';
-
 const TerreneHome = () => {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted">
+  return <div className="min-h-screen bg-gradient-to-br from-background to-muted">
       <header className="bg-primary text-primary-foreground border-b">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <h1 className="text-2xl font-bold tracking-tight">Terrene Tech</h1>
             <nav className="flex gap-6">
-              <Link 
-                to="/about" 
-                className="px-3 py-2 rounded-lg text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-colors"
-              >
+              <Link to="/about" className="px-3 py-2 rounded-lg text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-colors">
                 About Us
               </Link>
-              <Link 
-                to="/projects" 
-                className="px-3 py-2 rounded-lg text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-colors"
-              >
+              <Link to="/projects" className="px-3 py-2 rounded-lg text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-colors">
                 Future Projects
               </Link>
             </nav>
@@ -64,7 +56,7 @@ const TerreneHome = () => {
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Users className="h-6 w-6 text-primary" />
               </div>
-              <CardTitle>About Our Mission</CardTitle>
+              <CardTitle>About Terrene Tech</CardTitle>
               <CardDescription>
                 Learn about our team and the vision driving our innovative projects.
               </CardDescription>
@@ -100,8 +92,6 @@ const TerreneHome = () => {
           </Card>
         </div>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default TerreneHome;
