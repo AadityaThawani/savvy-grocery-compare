@@ -3,10 +3,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Calendar, Zap, Shield, Globe } from 'lucide-react';
-
 const Projects = () => {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted">
+  return <div className="min-h-screen bg-gradient-to-br from-background to-muted">
       <header className="bg-primary text-primary-foreground border-b">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
@@ -64,8 +62,8 @@ const Projects = () => {
                   </div>
                   <Badge variant="secondary">Q3 2025</Badge>
                 </div>
-                <CardTitle>Future Project</CardTitle>
-                <CardDescription>Add your project description here</CardDescription>
+                <CardTitle>Study Ai</CardTitle>
+                <CardDescription>Using IB subject specific past papers to help students prepare for IB exams with ai support on explaining topics and questions specific to the IB requirements</CardDescription>
               </CardHeader>
               <CardContent>
                 
@@ -77,8 +75,6 @@ const Projects = () => {
           
         </div>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default Projects;
