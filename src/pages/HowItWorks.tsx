@@ -111,13 +111,19 @@ const HowItWorks = () => {
             <div>
               <h4 className="font-medium text-foreground mb-2">Mock Data</h4>
               <p className="text-muted-foreground">
-                Currently, all prices are simulated using mock data as grocery stores do not provide public APIs for price information.
+                Not all prices are simulated - Tesco and Asda prices are being scraped accurately, while other retailers may use mock data as they do not provide public APIs for price information.
               </p>
             </div>
             <div>
               <h4 className="font-medium text-foreground mb-2">Web Scraping Restrictions</h4>
               <p className="text-muted-foreground">
                 Major grocery retailers actively block automated price scraping to protect their competitive advantage.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-medium text-foreground mb-2">Product Availability</h4>
+              <p className="text-muted-foreground">
+                Not all products are available in our database. We are continuously expanding our product catalog to include more items.
               </p>
             </div>
             <div>
