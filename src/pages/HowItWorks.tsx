@@ -30,7 +30,7 @@ const HowItWorks = () => {
         <Alert className="mb-8 border-amber-200 bg-amber-50 dark:border-amber-800 dark:bg-amber-950">
           <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
           <AlertDescription className="text-amber-800 dark:text-amber-200">
-            <strong>Important:</strong> Prices displayed may not be accurate at all times due to the lack of API support from grocery stores and web scraping being blocked by retailers. This tool is for reference purposes only.
+            <strong>Important:</strong> Prices displayed may not all be completely accurate due to a lack of API support from retailers and web scraping being actively blocked. This tool is still in the early stage and for quick comparisons only.
           </AlertDescription>
         </Alert>
 
