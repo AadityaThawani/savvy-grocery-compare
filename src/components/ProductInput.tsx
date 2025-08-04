@@ -3,9 +3,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { fetchTescoPrice } from '@/services/tesco';
-import { fetchSainsburysPrice } from '@/services/sainsburys';
-import { fetchAsdaPrice } from '@/services/asda';
+import { fetchPrice } from '@/services/fetchPrice';
 
 interface ProductInputProps {
   onAddProduct: (productName: string) => void;
@@ -29,17 +27,17 @@ const ProductInput = ({ onAddProduct, disabled }: ProductInputProps) => {
       const timeoutId = setTimeout(async () => {
         setLoading(true);
         try {
-          // Fetch products from all three stores
-          const [tescoProduct, sainsburysProduct, asdaProduct] = await Promise.all([
-            fetchTescoPrice(productName),
-            fetchSainsburysPrice(productName),
-            fetchAsdaPrice(productName)
+          // Fetch products from all three stores using the new service
+          const [tescoPrice, sainsburysPrice, asdaPrice] = await Promise.all([
+            fetchPrice(productName, 'tesco'),
+            fetchPrice(productName, 'sainsburys'), 
+            fetchPrice(productName, 'asda')
           ]);
 
           const products: StoreProduct[] = [
-            { ...tescoProduct, store: 'Tesco' },
-            { ...sainsburysProduct, store: "Sainsbury's" },
-            { ...asdaProduct, store: 'Asda' }
+            { name: productName, price: tescoPrice, store: 'Tesco' },
+            { name: productName, price: sainsburysPrice, store: "Sainsbury's" },
+            { name: productName, price: asdaPrice, store: 'Asda' }
           ];
 
           // Remove duplicates based on product name (case insensitive)

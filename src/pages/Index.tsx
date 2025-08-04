@@ -5,6 +5,7 @@ import PostalCodeInput from '@/components/PostalCodeInput';
 import ProductInput from '@/components/ProductInput';
 import ReceiptScanner from '@/components/ReceiptScanner';
 import PriceComparisonTable from '@/components/PriceComparisonTable';
+import { ViewCounter } from '@/components/ViewCounter';
 import { useToast } from '@/hooks/use-toast';
 
 const Index = () => {
@@ -62,7 +63,8 @@ const Index = () => {
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-6xl">
         <div className="space-y-8">
           {/* Hero Section */}
-          <div className="text-center py-8">
+          <div className="text-center py-8 relative">
+            <ViewCounter className="absolute top-0 right-0" />
             <h2 className="text-3xl font-semibold text-foreground mb-3 tracking-tight">
               Compare grocery prices across stores
             </h2>
