@@ -4,14 +4,12 @@ import { Trash2, ShoppingBasket } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { fetchTescoPrice, Product as TescoProduct } from '@/services/tesco';
-import { fetchSainsburysPrice, Product as SainsburysProduct } from '@/services/sainsburys';
-import { fetchAsdaPrice, Product as AsdaProduct } from '@/services/asda';
+import { fetchPrice } from '@/services/fetchPrice';
 
 interface PriceData {
-  tesco: TescoProduct | null;
-  sainsburys: SainsburysProduct | null;
-  asda: AsdaProduct | null;
+  tesco: number | null;
+  sainsburys: number | null;
+  asda: number | null;
 }
 
 interface PriceComparisonTableProps {
@@ -36,9 +34,9 @@ const PriceComparisonTable = ({ products, onRemoveProduct }: PriceComparisonTabl
     
     try {
       const [tesco, sainsburys, asda] = await Promise.all([
-        fetchTescoPrice(productName),
-        fetchSainsburysPrice(productName),
-        fetchAsdaPrice(productName)
+        fetchPrice(productName, 'tesco'),
+        fetchPrice(productName, 'sainsburys'),
+        fetchPrice(productName, 'asda')
       ]);
 
       setPriceData(prev => ({
@@ -54,12 +52,12 @@ const PriceComparisonTable = ({ products, onRemoveProduct }: PriceComparisonTabl
 
   const getCheapestPrice = (productName: string) => {
     const data = priceData[productName];
-    if (!data || !data.tesco || !data.sainsburys || !data.asda) return null;
+    if (!data || data.tesco === null || data.sainsburys === null || data.asda === null) return null;
 
     const prices = [
-      { store: 'tesco', price: data.tesco.price },
-      { store: 'sainsburys', price: data.sainsburys.price },
-      { store: 'asda', price: data.asda.price }
+      { store: 'tesco', price: data.tesco },
+      { store: 'sainsburys', price: data.sainsburys },
+      { store: 'asda', price: data.asda }
     ];
 
     return prices.reduce((min, current) => 
@@ -70,8 +68,8 @@ const PriceComparisonTable = ({ products, onRemoveProduct }: PriceComparisonTabl
   const calculateTotal = (store: 'tesco' | 'sainsburys' | 'asda') => {
     return products.reduce((total, product) => {
       const data = priceData[product];
-      if (data && data[store]) {
-        return total + data[store]!.price;
+      if (data && data[store] !== null) {
+        return total + data[store]!;
       }
       return total;
     }, 0);
@@ -116,7 +114,7 @@ const PriceComparisonTable = ({ products, onRemoveProduct }: PriceComparisonTabl
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <img
-                        src={data?.tesco?.image || '/placeholder.svg'}
+                        src="/placeholder.svg"
                         alt={product}
                         className="w-12 h-12 object-cover rounded"
                       />
@@ -124,13 +122,13 @@ const PriceComparisonTable = ({ products, onRemoveProduct }: PriceComparisonTabl
                     </div>
                   </TableCell>
                   <TableCell className={cheapest?.store === 'tesco' ? 'text-accent font-bold' : ''}>
-                    {isLoading ? 'Loading...' : data?.tesco ? `£${data.tesco.price.toFixed(2)}` : '-'}
+                    {isLoading ? 'Loading...' : data?.tesco !== null ? `£${data.tesco.toFixed(2)}` : '-'}
                   </TableCell>
                   <TableCell className={cheapest?.store === 'sainsburys' ? 'text-accent font-bold' : ''}>
-                    {isLoading ? 'Loading...' : data?.sainsburys ? `£${data.sainsburys.price.toFixed(2)}` : '-'}
+                    {isLoading ? 'Loading...' : data?.sainsburys !== null ? `£${data.sainsburys.toFixed(2)}` : '-'}
                   </TableCell>
                   <TableCell className={cheapest?.store === 'asda' ? 'text-accent font-bold' : ''}>
-                    {isLoading ? 'Loading...' : data?.asda ? `£${data.asda.price.toFixed(2)}` : '-'}
+                    {isLoading ? 'Loading...' : data?.asda !== null ? `£${data.asda.toFixed(2)}` : '-'}
                   </TableCell>
                   <TableCell>
                     <Button
