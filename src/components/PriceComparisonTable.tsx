@@ -122,13 +122,13 @@ const PriceComparisonTable = ({ products, onRemoveProduct }: PriceComparisonTabl
                     </div>
                   </TableCell>
                   <TableCell className={cheapest?.store === 'tesco' ? 'text-accent font-bold' : ''}>
-                    {isLoading ? 'Loading...' : data?.tesco !== null ? `£${data.tesco.toFixed(2)}` : '-'}
+                    {isLoading ? 'Loading...' : (data?.tesco !== null && data?.tesco !== undefined) ? `£${data.tesco.toFixed(2)}` : '-'}
                   </TableCell>
                   <TableCell className={cheapest?.store === 'sainsburys' ? 'text-accent font-bold' : ''}>
-                    {isLoading ? 'Loading...' : data?.sainsburys !== null ? `£${data.sainsburys.toFixed(2)}` : '-'}
+                    {isLoading ? 'Loading...' : (data?.sainsburys !== null && data?.sainsburys !== undefined) ? `£${data.sainsburys.toFixed(2)}` : '-'}
                   </TableCell>
                   <TableCell className={cheapest?.store === 'asda' ? 'text-accent font-bold' : ''}>
-                    {isLoading ? 'Loading...' : data?.asda !== null ? `£${data.asda.toFixed(2)}` : '-'}
+                    {isLoading ? 'Loading...' : (data?.asda !== null && data?.asda !== undefined) ? `£${data.asda.toFixed(2)}` : '-'}
                   </TableCell>
                   <TableCell>
                     <Button
