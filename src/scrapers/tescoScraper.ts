@@ -79,7 +79,19 @@ export async function getProductSuggestions(query: string): Promise<ProductSugge
       eggs: ["Tesco British Mixed Weight Large Eggs 12 Pack", "Happy Egg Co Free Range Large Eggs 12 Pack", "Clarence Court Old Cotswold Legbar Eggs 6 Pack"],
       rice: ["Uncle Ben's Original Long Grain Rice 1Kg", "Tesco Basmati Rice 1Kg", "Royal Umbrella Thai Jasmine Rice 1Kg"],
       pasta: ["Barilla Spaghetti No.5 500g", "Tesco Fusilli 500g", "Dolmio Pasta Tubes 500g"],
-      chicken: ["Tesco British Chicken Breast Fillets 1Kg", "Bernard Matthews Chicken Breast Mini Fillets 400g", "Tesco Whole British Chicken"]
+      chicken: ["Tesco British Chicken Breast Fillets 1Kg", "Bernard Matthews Chicken Breast Mini Fillets 400g", "Tesco Whole British Chicken"],
+      cheese: ["Cathedral City Mature Cheddar 350g", "Tesco British Mild Cheddar 400g", "Philadelphia Original Soft Cheese 280g"],
+      paneer: ["Tesco Paneer 225g", "Amul Fresh Paneer 200g", "KTC Paneer 300g"],
+      coke: ["Coca-Cola Original Taste 330ml Can", "Coca-Cola Zero Sugar 330ml Can", "Coca-Cola 2L Bottle"],
+      butter: ["Lurpak Slightly Salted Butter 250g", "Tesco British Butter 250g", "Anchor Butter 250g"],
+      yogurt: ["Activia Strawberry Yogurt 4x125g", "Tesco Greek Style Natural Yogurt 500g", "Muller Corner Vanilla 4x135g"],
+      cereal: ["Kellogg's Corn Flakes 500g", "Tesco Bran Flakes 500g", "Weetabix Original 24 Pack"],
+      apples: ["Tesco Royal Gala Apples 6 Pack", "Pink Lady Apples 6 Pack", "Granny Smith Apples 6 Pack"],
+      bananas: ["Tesco Bananas Loose per kg", "Organic Bananas 5 Pack", "Fair Trade Bananas 5 Pack"],
+      potatoes: ["Tesco King Edward Potatoes 2.5kg", "Maris Piper Potatoes 2kg", "Baby New Potatoes 1kg"],
+      tomatoes: ["Tesco Cherry Tomatoes on the Vine 300g", "Tesco Beef Tomatoes 4 Pack", "Baby Plum Tomatoes 350g"],
+      onions: ["Tesco Brown Onions 3kg", "Tesco Red Onions 1kg", "Tesco White Onions 1kg"],
+      carrots: ["Tesco Carrots 1kg", "Organic Carrots 1kg", "Chantenay Carrots 400g"]
     };
 
     const suggestions: ProductSuggestion[] = [];
@@ -98,7 +110,19 @@ export async function getProductSuggestions(query: string): Promise<ProductSugge
             eggs: [1.50, 2.50],
             rice: [2.00, 4.00],
             pasta: [0.50, 1.20],
-            chicken: [3.00, 6.00]
+            chicken: [3.00, 6.00],
+            cheese: [2.50, 5.00],
+            paneer: [1.80, 3.20],
+            coke: [0.70, 1.50],
+            butter: [1.80, 2.50],
+            yogurt: [2.00, 3.50],
+            cereal: [2.50, 4.50],
+            apples: [1.50, 2.50],
+            bananas: [0.80, 1.20],
+            potatoes: [1.00, 2.00],
+            tomatoes: [1.50, 2.50],
+            onions: [0.60, 1.20],
+            carrots: [0.40, 0.80]
           };
           
           const [min, max] = priceMap[category] || [1.00, 3.00];
@@ -126,7 +150,19 @@ export async function getProductSuggestions(query: string): Promise<ProductSugge
             eggs: [1.50, 2.50],
             rice: [2.00, 4.00],
             pasta: [0.50, 1.20],
-            chicken: [3.00, 6.00]
+            chicken: [3.00, 6.00],
+            cheese: [2.50, 5.00],
+            paneer: [1.80, 3.20],
+            coke: [0.70, 1.50],
+            butter: [1.80, 2.50],
+            yogurt: [2.00, 3.50],
+            cereal: [2.50, 4.50],
+            apples: [1.50, 2.50],
+            bananas: [0.80, 1.20],
+            potatoes: [1.00, 2.00],
+            tomatoes: [1.50, 2.50],
+            onions: [0.60, 1.20],
+            carrots: [0.40, 0.80]
           };
           
           const [min, max] = priceMap[category] || [1.00, 3.00];

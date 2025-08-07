@@ -79,7 +79,19 @@ export async function getProductSuggestions(query: string): Promise<ProductSugge
       eggs: ["Sainsbury's Woodland Free Range Large Eggs 12 Pack", "Sainsbury's So Organic Large Eggs 6 Pack", "Clarence Court Burford Brown Eggs 6 Pack"],
       rice: ["Sainsbury's Basmati Rice 1Kg", "Sainsbury's Long Grain Rice 1Kg", "Tilda Pure Basmati Rice 1Kg"],
       pasta: ["Sainsbury's Spaghetti 500g", "Sainsbury's Penne 500g", "Barilla Linguine 500g"],
-      chicken: ["Sainsbury's British Chicken Breast Fillets 1Kg", "Sainsbury's Woodland Free Range Chicken Breast 480g", "Sainsbury's Taste the Difference Chicken Breast"]
+      chicken: ["Sainsbury's British Chicken Breast Fillets 1Kg", "Sainsbury's Woodland Free Range Chicken Breast 480g", "Sainsbury's Taste the Difference Chicken Breast"],
+      cheese: ["Sainsbury's British Mature Cheddar 400g", "Cathedral City Extra Mature 350g", "Sainsbury's Taste the Difference Vintage Cheddar 200g"],
+      paneer: ["Sainsbury's Paneer 225g", "Nanak Paneer 283g", "Patak's Paneer 300g"],
+      coke: ["Coca-Cola Original Taste 330ml", "Coca-Cola Zero Sugar 330ml", "Coca-Cola Classic 2L"],
+      butter: ["Sainsbury's British Butter 250g", "Lurpak Slightly Salted 250g", "Kerrygold Pure Irish Butter 250g"],
+      yogurt: ["Sainsbury's Greek Style Natural Yogurt 500g", "Rachel's Organic Natural Yogurt 450g", "Onken Natural Set Yogurt 450g"],
+      cereal: ["Sainsbury's Corn Flakes 500g", "Sainsbury's Bran Flakes 500g", "Weetabix Chocolate 24 Pack"],
+      apples: ["Sainsbury's Pink Lady Apples 6 Pack", "Sainsbury's Royal Gala Apples 6 Pack", "Sainsbury's Granny Smith Apples 6 Pack"],
+      bananas: ["Sainsbury's Fairtrade Bananas 5 Pack", "Sainsbury's Bananas Loose per kg", "Sainsbury's Organic Bananas 5 Pack"],
+      potatoes: ["Sainsbury's King Edward Potatoes 2.5kg", "Sainsbury's Maris Piper 2kg", "Sainsbury's Baby New Potatoes 1kg"],
+      tomatoes: ["Sainsbury's Vine Ripened Tomatoes 6 Pack", "Sainsbury's Cherry Tomatoes 300g", "Sainsbury's Baby Plum Tomatoes 350g"],
+      onions: ["Sainsbury's Brown Onions 3kg", "Sainsbury's Red Onions 1kg", "Sainsbury's White Onions 1kg"],
+      carrots: ["Sainsbury's Carrots 1kg", "Sainsbury's Organic Carrots 1kg", "Sainsbury's Chantenay Carrots 400g"]
     };
 
     const suggestions: ProductSuggestion[] = [];
@@ -98,7 +110,19 @@ export async function getProductSuggestions(query: string): Promise<ProductSugge
             eggs: [1.60, 2.60],
             rice: [2.10, 4.10],
             pasta: [0.55, 1.25],
-            chicken: [3.10, 6.10]
+            chicken: [3.10, 6.10],
+            cheese: [2.60, 5.10],
+            paneer: [1.85, 3.25],
+            coke: [0.75, 1.55],
+            butter: [1.85, 2.60],
+            yogurt: [2.10, 3.60],
+            cereal: [2.60, 4.60],
+            apples: [1.60, 2.60],
+            bananas: [0.85, 1.25],
+            potatoes: [1.05, 2.05],
+            tomatoes: [1.60, 2.60],
+            onions: [0.65, 1.25],
+            carrots: [0.45, 0.85]
           };
           
           const [min, max] = priceMap[category] || [1.05, 3.05];
@@ -126,7 +150,19 @@ export async function getProductSuggestions(query: string): Promise<ProductSugge
             eggs: [1.60, 2.60],
             rice: [2.10, 4.10],
             pasta: [0.55, 1.25],
-            chicken: [3.10, 6.10]
+            chicken: [3.10, 6.10],
+            cheese: [2.60, 5.10],
+            paneer: [1.85, 3.25],
+            coke: [0.75, 1.55],
+            butter: [1.85, 2.60],
+            yogurt: [2.10, 3.60],
+            cereal: [2.60, 4.60],
+            apples: [1.60, 2.60],
+            bananas: [0.85, 1.25],
+            potatoes: [1.05, 2.05],
+            tomatoes: [1.60, 2.60],
+            onions: [0.65, 1.25],
+            carrots: [0.45, 0.85]
           };
           
           const [min, max] = priceMap[category] || [1.05, 3.05];

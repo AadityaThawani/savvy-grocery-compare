@@ -79,7 +79,19 @@ export async function getProductSuggestions(query: string): Promise<ProductSugge
       eggs: ["ASDA Smart Price Large Eggs 15 Pack", "ASDA Woodland Free Range Large Eggs 12 Pack", "Burford Browns Free Range Eggs 6 Pack"],
       rice: ["ASDA Smart Price Long Grain Rice 1Kg", "ASDA Basmati Rice 1Kg", "Ben's Original Long Grain Rice 1Kg"],
       pasta: ["ASDA Smart Price Spaghetti 500g", "ASDA Penne Pasta 500g", "Napolina Spaghetti 500g"],
-      chicken: ["ASDA Butcher's Selection Chicken Breast 1Kg", "ASDA Smart Price Chicken Breast Fillets 650g", "ASDA Extra Special Free Range Chicken Breast"]
+      chicken: ["ASDA Butcher's Selection Chicken Breast 1Kg", "ASDA Smart Price Chicken Breast Fillets 650g", "ASDA Extra Special Free Range Chicken Breast"],
+      cheese: ["ASDA Smart Price Mild Cheddar 400g", "Cathedral City Mature Cheddar 350g", "ASDA Extra Special Vintage Cheddar 200g"],
+      paneer: ["ASDA Paneer 200g", "Pataks Paneer 300g", "Mother Dairy Paneer 200g"],
+      coke: ["Coca-Cola Original 330ml Can", "Coca-Cola Zero Sugar 330ml Can", "Coca-Cola 1.75L Bottle"],
+      butter: ["ASDA Smart Price Butter 250g", "Lurpak Slightly Salted 250g", "Country Life Butter 250g"],
+      yogurt: ["ASDA Smart Price Natural Yogurt 500g", "Activia Natural 4x125g", "Greek Style Yogurt 500g"],
+      cereal: ["ASDA Smart Price Corn Flakes 500g", "Kellogg's Rice Krispies 510g", "ASDA Bran Flakes 500g"],
+      apples: ["ASDA Grower's Selection Gala Apples 6 Pack", "ASDA Pink Lady Apples 4 Pack", "Braeburn Apples 6 Pack"],
+      bananas: ["ASDA Grower's Selection Bananas 5 Pack", "Fair Trade Bananas Loose per kg", "Organic Bananas 5 Pack"],
+      potatoes: ["ASDA Grower's Selection King Edward 2.5kg", "ASDA Maris Piper 2kg", "ASDA Baby Potatoes 1kg"],
+      tomatoes: ["ASDA Grower's Selection Vine Tomatoes 6 Pack", "ASDA Cherry Tomatoes 300g", "ASDA Beef Tomatoes 4 Pack"],
+      onions: ["ASDA Grower's Selection Brown Onions 3kg", "ASDA Red Onions 1kg", "ASDA Spring Onions Bunch"],
+      carrots: ["ASDA Grower's Selection Carrots 1kg", "ASDA Organic Carrots 500g", "ASDA Chantenay Carrots 400g"]
     };
 
     const suggestions: ProductSuggestion[] = [];
@@ -98,7 +110,19 @@ export async function getProductSuggestions(query: string): Promise<ProductSugge
             eggs: [1.40, 2.40],
             rice: [1.90, 3.80],
             pasta: [0.45, 1.10],
-            chicken: [2.80, 5.80]
+            chicken: [2.80, 5.80],
+            cheese: [2.40, 4.80],
+            paneer: [1.70, 3.10],
+            coke: [0.65, 1.40],
+            butter: [1.70, 2.40],
+            yogurt: [1.90, 3.40],
+            cereal: [2.40, 4.40],
+            apples: [1.40, 2.40],
+            bananas: [0.75, 1.15],
+            potatoes: [0.95, 1.90],
+            tomatoes: [1.40, 2.40],
+            onions: [0.55, 1.15],
+            carrots: [0.35, 0.75]
           };
           
           const [min, max] = priceMap[category] || [0.95, 2.95];
@@ -126,7 +150,19 @@ export async function getProductSuggestions(query: string): Promise<ProductSugge
             eggs: [1.40, 2.40],
             rice: [1.90, 3.80],
             pasta: [0.45, 1.10],
-            chicken: [2.80, 5.80]
+            chicken: [2.80, 5.80],
+            cheese: [2.40, 4.80],
+            paneer: [1.70, 3.10],
+            coke: [0.65, 1.40],
+            butter: [1.70, 2.40],
+            yogurt: [1.90, 3.40],
+            cereal: [2.40, 4.40],
+            apples: [1.40, 2.40],
+            bananas: [0.75, 1.15],
+            potatoes: [0.95, 1.90],
+            tomatoes: [1.40, 2.40],
+            onions: [0.55, 1.15],
+            carrots: [0.35, 0.75]
           };
           
           const [min, max] = priceMap[category] || [0.95, 2.95];
