@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { fetchPrice } from '@/services/fetchPrice';
+import { getProductSuggestions as getTescoSuggestions } from '@/scrapers/tescoScraper';
+import { getProductSuggestions as getAsdaSuggestions } from '@/scrapers/asdaScraper';
+import { getProductSuggestions as getSainsburysSuggestions } from '@/scrapers/sainsburysScraper';
 
 interface ProductInputProps {
   onAddProduct: (productName: string) => void;
@@ -27,34 +29,31 @@ const ProductInput = ({ onAddProduct, disabled }: ProductInputProps) => {
       const timeoutId = setTimeout(async () => {
         setLoading(true);
         try {
-          // Fetch products from all three stores using the new service
-          const [tescoPrice, sainsburysPrice, asdaPrice] = await Promise.all([
-            fetchPrice(productName, 'tesco'),
-            fetchPrice(productName, 'sainsburys'), 
-            fetchPrice(productName, 'asda')
+          // Fetch product suggestions from all three stores
+          const [tescoSuggestions, asdaSuggestions, sainsburysSuggestions] = await Promise.all([
+            getTescoSuggestions(productName),
+            getAsdaSuggestions(productName),
+            getSainsburysSuggestions(productName)
           ]);
 
-          const products: StoreProduct[] = [
-            { name: productName, price: tescoPrice, store: 'Tesco' },
-            { name: productName, price: sainsburysPrice, store: "Sainsbury's" },
-            { name: productName, price: asdaPrice, store: 'Asda' }
+          // Combine all suggestions
+          const allSuggestions = [
+            ...tescoSuggestions,
+            ...asdaSuggestions,
+            ...sainsburysSuggestions
           ];
 
-          // Remove duplicates based on product name (case insensitive)
-          const uniqueProducts = products.reduce((acc: StoreProduct[], current) => {
-            const exists = acc.find(item => 
-              item.name.toLowerCase() === current.name.toLowerCase()
-            );
-            if (!exists) {
-              acc.push(current);
-            }
-            return acc;
-          }, []);
+          // Convert to StoreProduct format
+          const products: StoreProduct[] = allSuggestions.map(suggestion => ({
+            name: suggestion.name,
+            price: suggestion.price,
+            store: suggestion.store
+          }));
 
-          setStoreProducts(uniqueProducts);
+          setStoreProducts(products);
           setShowSuggestions(true);
         } catch (error) {
-          console.error('Error fetching products:', error);
+          console.error('Error fetching product suggestions:', error);
         } finally {
           setLoading(false);
         }

@@ -2,6 +2,12 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { commonItems } from './commonItems';
 
+interface ProductSuggestion {
+  name: string;
+  price: number;
+  store: string;
+}
+
 export async function getPrice(item: string): Promise<number | null> {
   // Check if item is in our supported list
   if (!commonItems.includes(item.toLowerCase())) {
@@ -56,5 +62,88 @@ export async function getPrice(item: string): Promise<number | null> {
   } catch (error) {
     console.error(`Error scraping Asda price for ${item}:`, error);
     return null;
+  }
+}
+
+export async function getProductSuggestions(query: string): Promise<ProductSuggestion[]> {
+  if (query.length < 2) return [];
+  
+  try {
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 300 + Math.random() * 500));
+    
+    // Mock product suggestions based on query
+    const productDatabase: { [key: string]: string[] } = {
+      bread: ["ASDA Smart Price White Bread 800g", "Mother Pride White Medium Bread 800g", "ASDA Extra Special Seeded Batch 400g"],
+      milk: ["ASDA British Whole Milk 2.27L", "Lactofree Whole Milk 1L", "ASDA Smart Price Whole Milk 2.27L"],
+      eggs: ["ASDA Smart Price Large Eggs 15 Pack", "ASDA Woodland Free Range Large Eggs 12 Pack", "Burford Browns Free Range Eggs 6 Pack"],
+      rice: ["ASDA Smart Price Long Grain Rice 1Kg", "ASDA Basmati Rice 1Kg", "Ben's Original Long Grain Rice 1Kg"],
+      pasta: ["ASDA Smart Price Spaghetti 500g", "ASDA Penne Pasta 500g", "Napolina Spaghetti 500g"],
+      chicken: ["ASDA Butcher's Selection Chicken Breast 1Kg", "ASDA Smart Price Chicken Breast Fillets 650g", "ASDA Extra Special Free Range Chicken Breast"]
+    };
+
+    const suggestions: ProductSuggestion[] = [];
+    const lowerQuery = query.toLowerCase();
+    
+    // Find matching products
+    for (const [category, products] of Object.entries(productDatabase)) {
+      if (category.includes(lowerQuery) || lowerQuery.includes(category)) {
+        for (const product of products) {
+          if (suggestions.length >= 3) break;
+          
+          // Get price for this category (Asda typically slightly cheaper)
+          const priceMap: { [key: string]: [number, number] } = {
+            bread: [0.80, 1.40],
+            milk: [1.15, 1.75],
+            eggs: [1.40, 2.40],
+            rice: [1.90, 3.80],
+            pasta: [0.45, 1.10],
+            chicken: [2.80, 5.80]
+          };
+          
+          const [min, max] = priceMap[category] || [0.95, 2.95];
+          const price = parseFloat((Math.random() * (max - min) + min).toFixed(2));
+          
+          suggestions.push({
+            name: product,
+            price,
+            store: 'Asda'
+          });
+        }
+      }
+    }
+    
+    // Also check if any product names contain the query
+    for (const [category, products] of Object.entries(productDatabase)) {
+      for (const product of products) {
+        if (suggestions.length >= 5) break;
+        if (product.toLowerCase().includes(lowerQuery) && 
+            !suggestions.some(s => s.name === product)) {
+          
+          const priceMap: { [key: string]: [number, number] } = {
+            bread: [0.80, 1.40],
+            milk: [1.15, 1.75],
+            eggs: [1.40, 2.40],
+            rice: [1.90, 3.80],
+            pasta: [0.45, 1.10],
+            chicken: [2.80, 5.80]
+          };
+          
+          const [min, max] = priceMap[category] || [0.95, 2.95];
+          const price = parseFloat((Math.random() * (max - min) + min).toFixed(2));
+          
+          suggestions.push({
+            name: product,
+            price,
+            store: 'Asda'
+          });
+        }
+      }
+    }
+    
+    return suggestions;
+  } catch (error) {
+    console.error('Error getting Asda product suggestions:', error);
+    return [];
   }
 }
