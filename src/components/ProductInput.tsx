@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getProductSuggestions as getTescoSuggestions } from '@/scrapers/tescoScraper';
 import { getProductSuggestions as getAsdaSuggestions } from '@/scrapers/asdaScraper';
 import { getProductSuggestions as getSainsburysSuggestions } from '@/scrapers/sainsburysScraper';
-import { fetchPrice } from '@/services/fetchPrice';
 
 interface ProductInputProps {
   onAddProduct: (productName: string) => void;
@@ -44,19 +43,12 @@ const ProductInput = ({ onAddProduct, disabled }: ProductInputProps) => {
             ...sainsburysSuggestions
           ];
 
-          // Convert to StoreProduct format and get consistent prices
-          const products: StoreProduct[] = await Promise.all(
-            allSuggestions.map(async (suggestion) => {
-              const storeKey = suggestion.store.toLowerCase().replace("'s", "") as 'tesco' | 'asda' | 'sainsburys';
-              const consistentPrice = await fetchPrice(suggestion.name, storeKey);
-              
-              return {
-                name: suggestion.name,
-                price: consistentPrice,
-                store: suggestion.store
-              };
-            })
-          );
+          // Convert to StoreProduct format using the scraped prices directly
+          const products: StoreProduct[] = allSuggestions.map(suggestion => ({
+            name: suggestion.name,
+            price: suggestion.price, // Use the scraped price directly
+            store: suggestion.store
+          }));
 
           setStoreProducts(products);
           setShowSuggestions(true);
