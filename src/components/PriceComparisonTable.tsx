@@ -4,7 +4,9 @@ import { Trash2, ShoppingBasket } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { fetchPrice } from '@/services/fetchPrice';
+import { getPrice as getTescoPrice } from '@/scrapers/tescoScraper';
+import { getPrice as getAsdaPrice } from '@/scrapers/asdaScraper';
+import { getPrice as getSainsburysPrice } from '@/scrapers/sainsburysScraper';
 
 interface PriceData {
   tesco: number | null;
@@ -34,9 +36,9 @@ const PriceComparisonTable = ({ products, onRemoveProduct }: PriceComparisonTabl
     
     try {
       const [tesco, sainsburys, asda] = await Promise.all([
-        fetchPrice(productName, 'tesco'),
-        fetchPrice(productName, 'sainsburys'),
-        fetchPrice(productName, 'asda')
+        getTescoPrice(productName),
+        getSainsburysPrice(productName),
+        getAsdaPrice(productName)
       ]);
 
       setPriceData(prev => ({
