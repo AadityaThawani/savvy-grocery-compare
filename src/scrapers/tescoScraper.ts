@@ -9,10 +9,11 @@ interface ProductSuggestion {
 }
 
 export async function getPrice(item: string): Promise<number | null> {
-  // Check if item is in our supported list
-  if (!commonItems.includes(item.toLowerCase())) {
-    return null;
-  }
+  // Check if item contains any keywords from our supported list or price map
+  const itemLower = item.toLowerCase();
+  const hasKeyword = commonItems.some(commonItem => 
+    itemLower.includes(commonItem) || commonItem.includes(itemLower)
+  );
 
   try {
     // Mock scraping implementation for now
@@ -56,7 +57,21 @@ export async function getPrice(item: string): Promise<number | null> {
       lettuce: [0.80, 1.50]
     };
 
-    const [min, max] = priceMap[item.toLowerCase()] || [1.00, 3.00];
+    // Find the best matching price range based on keywords in the item name
+    let priceRange = [1.00, 3.00]; // default
+    for (const [key, range] of Object.entries(priceMap)) {
+      if (itemLower.includes(key) || key.includes(itemLower)) {
+        priceRange = range;
+        break;
+      }
+    }
+    
+    if (!hasKeyword) {
+      // If no keyword match, still return a reasonable price for any product
+      priceRange = [1.00, 4.00];
+    }
+
+    const [min, max] = priceRange;
     return parseFloat((Math.random() * (max - min) + min).toFixed(2));
 
   } catch (error) {
